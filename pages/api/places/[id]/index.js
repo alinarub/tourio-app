@@ -1,7 +1,12 @@
-import { places } from "../../../../lib/db.js";
+import dbConnect from "@/db/dbConnect";
 
-export default function handler(request, response) {
+export default async function handler(request, response) {
+  await dbConnect();
   const { id } = request.query;
+
+  if (request.method === "GET") {
+    const places = await Place.findById(id);
+  }
 
   if (!id) {
     return;
